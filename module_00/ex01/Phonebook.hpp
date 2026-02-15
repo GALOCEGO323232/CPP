@@ -12,6 +12,7 @@ class PhoneBook
 		int index;
 	
 		std::string getInput(std::string prompt);
+		std::string formatField(std::string str);
 		void displayContactsTable();
 		void askContactIndexAndDisplay();
 
@@ -20,3 +21,5 @@ class PhoneBook
     	void addContact();
     	void searchContact();
 };
+
+#endif

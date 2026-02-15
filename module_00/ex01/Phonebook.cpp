@@ -44,7 +44,7 @@ void  PhoneBook::addContact()
 	std::cout <<  "Contact saved! ✅" <<  std::endl;
 }
 
-static std::string PhoneBook::formatField(std::string str) const
+std::string PhoneBook::formatField(std::string str)
 {
 	if(str.length() > 10)
 		return str.replace(9, str.length() - 9, ".");
@@ -76,13 +76,12 @@ void PhoneBook::askContactIndexAndDisplay()
 		std::cout << "--> To return to menu type -1:\n" << std::endl;
 
 		std::string input;
-		bool isvalid = true;
 		std::getline(std::cin, input);
 
 		if (input == "-1")
 			return ;
 		bool valid = true;
-		for(int i = 0; i < input.length(); i++)
+		for(size_t i = 0; i < input.length(); i++)
 		{
 			if (!std::isdigit(input[i]))
 			{
@@ -102,6 +101,7 @@ void PhoneBook::askContactIndexAndDisplay()
 			std::cout << "Invalid index!" << std::endl;
     		continue;
 		}
+		std::cout << std::endl;
 		std::cout << "First Name: " << contacts[index].getFirstName() << std::endl;
 		std::cout << "Last Name: " << contacts[index].getLastName() << std::endl;
 		std::cout << "Nickname: " << contacts[index].getNickName() << std::endl;
@@ -117,6 +117,6 @@ void PhoneBook::searchContact()
 		std::cout << "No contacts available." << std::endl;
 		return;
 	}
-	displayContactsTable()
-    askContactIndexAndDisplay()
+	displayContactsTable();
+    askContactIndexAndDisplay();
 }
