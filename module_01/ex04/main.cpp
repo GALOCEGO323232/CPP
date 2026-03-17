@@ -40,11 +40,11 @@ int main(int argc, char **argv)
         isFirstLine = false;
         size_t lastPos = 0;
         size_t pos;
-        while ((Pos = line.find(s1, lastPos)) != std::string::npos)
+        while ((pos = line.find(s1, lastPos)) != std::string::npos)
         {
-            outputFile << line.substr(lastPos, foundPos - lastPos);
+            outputFile << line.substr(lastPos, pos - lastPos);
             outputFile << s2;
-            lastPos = foundPos + s1.length();
+            lastPos = pos + s1.length();
         }
         outputFile << line.substr(lastPos);
     }
