@@ -1,4 +1,4 @@
-NAME = HI_THIS_IS_BRAIN
+NAME = brain
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 SRC = main.cpp
