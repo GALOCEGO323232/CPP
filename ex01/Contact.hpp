@@ -1,7 +1,11 @@
 #ifndef CONTACT_HPP
 #define CONTACT_HPP
 
-# include "Includes.hpp"
+# include <iostream>
+# include <cctype>
+# include <string>
+# include <cstdlib>
+# include <iomanip>
 
 class Contact
 {
