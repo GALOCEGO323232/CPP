@@ -2,25 +2,17 @@
 
 int main(void)
 {
-	ClapTrap a;
-	ClapTrap b("João");
-	a.attack("João");
-	b.takeDamage(5);
-	b.beRepaired(3);
-	b.takeDamage(5);
-	b.takeDamage(5);
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
-	a.attack("João");
+  ClapTrap a("Max");
+  ClapTrap b;
+
+  a.attack("Robert");
+  a.takeDamage(3);
+  a.beRepaired(2);
+
+  a.takeDamage(10);
+  a.attack("Robert");
+  a.beRepaired(5);
+
+  return 0;
+
 }
