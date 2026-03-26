@@ -15,6 +15,9 @@ int main()
     i->makeSound();
     j->makeSound();
     meta->makeSound();
+    delete meta;
+    delete j;
+    delete i;
 
     std::cout << "\n=== Array test ===" << std::endl;
     Animal* animals[10];
@@ -28,4 +31,7 @@ int main()
     std::cout << "\n=== deep copy test ===" << std::endl;
     Dog a;
     Dog b(a);
+    Dog c;
+
+    c = a;
 }
