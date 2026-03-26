@@ -16,6 +16,7 @@ int main()
     j->makeSound();
     meta->makeSound();
 
+    std::cout << "\n=== Wrong Animals ===" << std::endl;
     const WrongAnimal* meta1 = new WrongAnimal();
     const WrongAnimal* i1 = new WrongCat();
     std::cout << i1->getType() << " " << std::endl;
