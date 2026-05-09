@@ -1,21 +1,63 @@
-#ifndef INTERN_HPP
-# define INTERN_HPP
+#include "Intern.hpp"
 
-# include "AForm.hpp"
-# include "ShrubberyCreationForm.hpp"
-# include "RobotomyRequestForm.hpp"
-# include "PresidentialPardonForm.hpp"
-
-class Intern
+Intern::Intern()
 {
-    public:
+}
 
-        Intern();
-        Intern(const Intern& other);
-        Intern& operator=(const Intern& other);
-        ~Intern();
+Intern::Intern(const Intern& other)
+{
+    (void)other;
+}
 
-        AForm* makeForm(const std::string& name, const std::string& target) const;
+Intern& Intern::operator=(const Intern& other)
+{
+    (void)other;
+    return *this;
+}
+
+Intern::~Intern()
+{
+}
+
+static AForm* createShrubbery(const std::string& target)
+{
+    return new ShrubberyCreationForm(target);
+}
+
+static AForm* createRobotomy(const std::string& target)
+{
+    return new RobotomyRequestForm(target);
+}
+
+static AForm* createPardon(const std::string& target)
+{
+    return new PresidentialPardonForm(target);
+}
+
+struct FormType
+{
+    std::string name;
+    AForm*      (*create)(const std::string& target);
 };
 
-#endif
+AForm* Intern::makeForm(const std::string& name, const std::string& target) const
+{
+    FormType forms[] = {
+        {"shrubbery creation",   createShrubbery},
+        {"robotomy request",     createRobotomy},
+        {"presidential pardon",  createPardon}
+    };
+
+    int size = 3;
+    for (int i = 0; i < size; i++)
+    {
+        if (forms[i].name == name)
+        {
+            std::cout << "Intern creates " << name << std::endl;
+            return forms[i].create(target);
+        }
+    }
+
+    std::cout << "Error: form '" << name << "' does not exist" << std::endl;
+    return NULL;
+}
