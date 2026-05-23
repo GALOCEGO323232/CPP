@@ -14,7 +14,6 @@ const char* Form::GradeTooLowExpection::what() const throw()
 
 Form::Form() : _name("Default"), _signed(false), _gradeToSign(150), _gradeToExecute(150)
 {
-	std::cout << "Form default constructor called" << std::endl;
 }
 
 Form::Form(const std::string& name, int gradeToSign, int gradeToExecute) : _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
@@ -23,7 +22,6 @@ Form::Form(const std::string& name, int gradeToSign, int gradeToExecute) : _name
 		throw GradeTooHighExpection();
 	if (gradeToExecute > 150 || gradeToSign > 150)
 		throw GradeTooLowExpection();
-	std::cout << "Form " << _name <<  " constructor called" << std::endl;
 }
 
 Form::Form(const Form& other) : 
@@ -32,15 +30,12 @@ Form::Form(const Form& other) :
     _gradeToSign(other._gradeToSign),
     _gradeToExecute(other._gradeToExecute)
 {
-
-	std::cout << "Form " << _name <<  " copy constructor called" << std::endl;
 }
 
 Form &Form::operator=(const Form& other)
 {
 	if (this != &other)
 	{
-		std::cout << "Form " << other._name <<  " copy constructor called" << std::endl;
 		_signed = other._signed;
 	}
 	return *this;
@@ -48,7 +43,6 @@ Form &Form::operator=(const Form& other)
 
 Form::~Form()
 {
-	std::cout << "Form " << _name << " destructor called" << std::endl;
 }
 
 const std::string& Form::getName() const

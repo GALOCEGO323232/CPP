@@ -4,8 +4,9 @@
 #include <string>
 #include <iostream>
 #include <exception>
+#include "AForm.hpp"
 
-class AFrom;
+
 
 class Bureaucrat
 {
