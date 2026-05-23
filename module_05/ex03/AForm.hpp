@@ -10,10 +10,10 @@ class Bureaucrat;
 class AForm
 {
 	private:
-		const std::string _name
-		bool		_signed
-		const int  _gradeToSign
-		const int  _gradeToExecute
+		const std::string _name;
+		bool		_signed;
+		const int  _gradeToSign;
+		const int  _gradeToExecute;
 
 	protected:
 		void checkExecution(Bureaucrat const & executor) const;
@@ -39,7 +39,7 @@ class AForm
 		};
 		
 		AForm();
-		AForm(cosnt std::string& name, int gradeToSign, int gradeToExecute);
+		AForm(const std::string& name, int gradeToSign, int gradeToExecute);
 		AForm(const AForm& other);
 		AForm& operator=(const AForm& other);
 		virtual ~AForm();
@@ -51,7 +51,7 @@ class AForm
 
 		void beSigned(const Bureaucrat& bureaucrat);
 		virtual void    execute(Bureaucrat const & executor) const = 0;
-}
+};
 
 std::ostream& operator<<(std::ostream& os, const AForm& f);
 

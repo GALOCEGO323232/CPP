@@ -10,27 +10,27 @@ class Bureaucrat;
 class Form
 {
 	private:
-		const std::string _name
-		bool		_signed
-		const int  _gradeToSign
-		const int  _gradeToExecute
+		const std::string _name;
+		bool		_signed;
+		const int  _gradeToSign;
+		const int  _gradeToExecute;
 	
 	public:
 
-		class GradeTooHighException : public std::exception
+		class GradeTooHighExpection : public std::exception
 		{
 			public:
 				const char* what() const throw();
 		};
 
-		class GradeTooLowException : public std::exception
+		class GradeTooLowExpection : public std::exception
 		{
 			public:
 				const char* what() const throw();
 		};
 
 		Form();
-		Form(cosnt std::string& name, int gradeToSign, int gradeToExecute);
+		Form(const std::string& name, int gradeToSign, int gradeToExecute);
 		Form(const Form& other);
 		Form& operator=(const Form& other);
 		~Form();
@@ -41,7 +41,7 @@ class Form
 		int				   getGradeToExecute() const;
 
 		void beSigned(const Bureaucrat& bureaucrat);
-}
+};
 
 std::ostream& operator<<(std::ostream& os, const Form& f);
 

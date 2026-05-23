@@ -1,19 +1,19 @@
 #include "Bureaucrat.hpp"
 
-const char* Bureaucrat::GradeTooHighException::what() const throw();
+const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return "Error: grid too high (minimum and 1)"
+	return "Error: grade too high (minimum is 1)";
 }
 
-const char* Bureaucrat::GradeTooLowGrade::what() const throw();
+const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return "Error: grid too low (maximum is 150)"
+	return "Error: grade too low (maximum is 150)";
 }
 
 
 Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
 {
-	std::cout << "Bureaucrat default constructor called" << std::endl
+	std::cout << "Bureaucrat default constructor called" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name), _grade(grade)
@@ -22,20 +22,20 @@ Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name), _grade
 		throw GradeTooHighException();
 	if (grade > 150)
 		throw GradeTooLowException();
-	std::cout << "Bureaucrat " << name << " constructor called" << std::endl
+	std::cout << "Bureaucrat " << name << " constructor called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& other)
+Bureaucrat::Bureaucrat(const Bureaucrat& other) : _name(other._name), _grade(other._grade)
 {
-	_grade = other._grade;
-	std::cout << "Bureaucrat "<< other._name << " copy constructor called" << std::endl
+
+	std::cout << "Bureaucrat "<< other._name << " copy constructor called" << std::endl;
 }
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat& other)
 {
 	if (this != &other)
 	{
-		std::cout << "Bureaucrat "<< other._name << " operator constructor called" << std::endl
+		std::cout << "Bureaucrat "<< other._name << " operator constructor called" << std::endl;
 		_grade = other._grade;
 	}
 	return *this;
@@ -43,7 +43,7 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat& other)
 
 Bureaucrat::~Bureaucrat()
 {
-	std::cout << "Bureaucrat " << _name << " destructor called" << std::endl
+	std::cout << "Bureaucrat " << _name << " destructor called" << std::endl;
 }
 
 const std::string& Bureaucrat::getName() const
@@ -58,16 +58,16 @@ int Bureaucrat::getGrade() const
 
 void Bureaucrat::incrementGrade()
 {
-	if (grade - 1 < 1)
+	if (_grade - 1 < 1)
 		throw GradeTooHighException();
-	grade--;
+	_grade--;
 }
 
 void Bureaucrat::decrementGrade()
 {
-	if (grade + 1 > 150)
-		throw GradeTooLowExpection();
-	grade++;
+	if (_grade + 1 > 150)
+		throw GradeTooLowException();
+	_grade++;
 }
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& b)
@@ -76,7 +76,7 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& b)
     return os;
 }
 
-void Bureaucrat::signForm(AForm& Form)
+void Bureaucrat::signForm(AForm& form)
 {
 	    try
     {
@@ -97,20 +97,21 @@ void Bureaucrat::signForm(AForm& Form)
     }
 }
 
-void Bureaucrat::executeForm(AForm& Form)
+
+void Bureaucrat::executeForm(AForm const &form)
 {
 	try
     {
         form.execute(*this);
         std::cout << _name
-                  << " signed "
+                  << " executed "
                   << form.getName()
                   << std::endl;
     }
     catch (std::exception& e)
     {
         std::cout << _name
-                  << " couldn't sign "
+                  << " couldn't execute "
                   << form.getName()
                   << " because "
                   << e.what()

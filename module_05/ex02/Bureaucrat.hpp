@@ -3,26 +3,26 @@
 
 #include <string>
 #include <iostream>
-#include <expection>
+#include <exception>
 
-class AForm;
+class AFrom;
 
 class Bureaucrat
 {
 	private:
-		int _grade;
 		const std::string _name;
+		int _grade;
 
 	public:
 
 
-		class GradeTooHighException : public std::expection
+		class GradeTooHighException : public std::exception
 		{
 			public:
 				const char* what() const throw();
 		};
 
-		class GradeTooLowExpection : public std::expection
+		class GradeTooLowException : public std::exception
 		{
 			public:
 				const char* what() const throw();
@@ -31,17 +31,17 @@ class Bureaucrat
 		Bureaucrat();
 		Bureaucrat(const std::string& name, int grade);
 		Bureaucrat(const Bureaucrat& other);
-		Bureaucrat& operator=(const Bureaucrat& other)
+		Bureaucrat& operator=(const Bureaucrat& other);
 		~Bureaucrat();
 
-		const std::string getName() const;
+		const std::string& getName() const;
 		int				  getGrade() const;
 
 
 		void incrementGrade();
 		void decrementGrade();
-		void signForm(Form& form);
-		void executeForm(AForm const & form);
+		void signForm(AForm& form);
+		void executeForm(AForm const  &form);
 
 
 };

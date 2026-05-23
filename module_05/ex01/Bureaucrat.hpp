@@ -3,26 +3,27 @@
 
 #include <string>
 #include <iostream>
-#include <expection>
+#include <exception>
+#include "Form.hpp"
 
-class Form;
+
 
 class Bureaucrat
 {
 	private:
-		int _grade;
 		const std::string _name;
+		int _grade;
 
 	public:
 
 
-		class GradeTooHighException : public std::expection
+		class GradeTooHighExpection : public std::exception
 		{
 			public:
 				const char* what() const throw();
 		};
 
-		class GradeTooLowExpection : public std::expection
+		class GradeTooLowExpection : public std::exception
 		{
 			public:
 				const char* what() const throw();
@@ -31,17 +32,16 @@ class Bureaucrat
 		Bureaucrat();
 		Bureaucrat(const std::string& name, int grade);
 		Bureaucrat(const Bureaucrat& other);
-		Bureaucrat& operator=(const Bureaucrat& other)
+		Bureaucrat& operator=(const Bureaucrat& other);
 		~Bureaucrat();
 
-		const std::string getName() const;
+		const std::string& getName() const;
 		int				  getGrade() const;
 
 
 		void incrementGrade();
 		void decrementGrade();
-		void signForm(Form& form);
-
+		void signForm(Form &Form);
 
 };
 
