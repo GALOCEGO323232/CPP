@@ -1,6 +1,6 @@
 #include "iter.hpp"
 
-void printtest(cosnt int& f)
+void printtest(const int& f)
 {
 	std::cout << f << std::endl;
 }
