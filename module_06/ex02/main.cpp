@@ -1,11 +1,11 @@
 #include "Base.hpp"
 #include <cstdlib>
-#include <ctime>
+#include "A.hpp"
+#include "B.hpp"
+#include "C.hpp"
 
 int main(void)
 {
-    std::srand(std::time(NULL));
-
     Base* p = generate();
 
     std::cout << "identify by pointer: ";
