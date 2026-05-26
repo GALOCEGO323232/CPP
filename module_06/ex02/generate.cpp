@@ -2,6 +2,7 @@
 
 Base* generate(void)
 {
+    std::srand(std::time(NULL));
 	int num = std::rand() % 3;
 
 	if (num == 0)
