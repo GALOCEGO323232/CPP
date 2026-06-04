@@ -80,7 +80,6 @@ void PmergeMe::mergeInsertVector(std::vector<int>& vec)
     if (vec.size() <= 1)
         return;
 
-    // cria pares (larger, smaller)
     std::vector<std::pair<int, int> > pairs;
     bool hasLeftover = false;
     int  leftover    = -1;
@@ -99,23 +98,29 @@ void PmergeMe::mergeInsertVector(std::vector<int>& vec)
         hasLeftover = true;
     }
 
-    // extrai os maiores e ordena recursivamente
+    // extrai os maiores
     std::vector<int> larger;
     for (size_t i = 0; i < pairs.size(); i++)
         larger.push_back(pairs[i].first);
 
+    // ordena os maiores recursivamente
     mergeInsertVector(larger);
 
-    // reconstroi associacao: smaller[j] tem par maior pairValues[j]
+    // ordena os pairs pelo first (maior) usando sort
+    // assim ficam na mesma ordem que larger apos recursao
+    std::vector<std::pair<int, int> > sortedPairs = pairs;
+    std::sort(sortedPairs.begin(), sortedPairs.end());
+
+    // extrai smaller e pairValues na ordem correta
     std::vector<int> smaller;
     std::vector<int> pairValues;
-    for (size_t i = 0; i < pairs.size(); i++)
+    for (size_t i = 0; i < sortedPairs.size(); i++)
     {
-        smaller.push_back(pairs[i].second);
-        pairValues.push_back(pairs[i].first);
+        smaller.push_back(sortedPairs[i].second);
+        pairValues.push_back(sortedPairs[i].first);
     }
 
-    // b1 sempre vai pro inicio (e menor que a1 com certeza)
+    // b1 vai pro inicio
     larger.insert(larger.begin(), smaller[0]);
 
     if (smaller.size() == 1)
@@ -130,8 +135,7 @@ void PmergeMe::mergeInsertVector(std::vector<int>& vec)
         return;
     }
 
-    // insere o restante usando jacobsthal
-    std::vector<int> jacob    = jacobsthal(smaller.size());
+    std::vector<int>  jacob    = jacobsthal(smaller.size());
     std::vector<bool> inserted(smaller.size(), false);
     inserted[0] = true;
 
@@ -146,11 +150,9 @@ void PmergeMe::mergeInsertVector(std::vector<int>& vec)
             if (inserted[j])
                 continue;
 
-            // acha o par maior pelo valor (nao pelo indice)
             std::vector<int>::iterator pairPos = std::lower_bound(
                 larger.begin(), larger.end(), pairValues[j]);
 
-            // busca binaria so ate o par maior
             std::vector<int>::iterator pos = std::lower_bound(
                 larger.begin(), pairPos + 1, smaller[j]);
 
@@ -203,12 +205,16 @@ void PmergeMe::mergeInsertDeque(std::deque<int>& deq)
 
     mergeInsertDeque(larger);
 
-    std::deque<int> smaller;
+    // ordena os pairs pelo first usando sort
+    std::vector<std::pair<int, int> > sortedPairs = pairs;
+    std::sort(sortedPairs.begin(), sortedPairs.end());
+
+    std::deque<int>  smaller;
     std::vector<int> pairValues;
-    for (size_t i = 0; i < pairs.size(); i++)
+    for (size_t i = 0; i < sortedPairs.size(); i++)
     {
-        smaller.push_back(pairs[i].second);
-        pairValues.push_back(pairs[i].first);
+        smaller.push_back(sortedPairs[i].second);
+        pairValues.push_back(sortedPairs[i].first);
     }
 
     larger.insert(larger.begin(), smaller[0]);
